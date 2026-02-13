@@ -3,8 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-FRONTEND_URL = os.getenv("https://nexgenconnect1.vercel.app/login")
-
+FRONTEND_URL = os.getenv("FRONTEND_URL")
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes import auth, events
