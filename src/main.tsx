@@ -1,25 +1,17 @@
-from fastapi import FastAPI
-import firebase_admin
-from firebase_admin import credentials, firestore
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
-# Initialize Firebase
-cred = credentials.Certificate("firebase-key.json")
-firebase_admin.initialize_app(cred)
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "nexgen-connect-9df40.firebaseapp.com",
+  projectId: "nexgen-connect-9df40",
+  storageBucket: "nexgen-connect-9df40.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-db = firestore.client()
+const app = initializeApp(firebaseConfig);
 
-app = FastAPI()
-
-@app.get("/")
-def home():
-    return {"message": "NexGen Connect Backend Running"}
-
-@app.post("/create-user")
-def create_user(user: dict):
-    db.collection("users").document(user["uid"]).set(user)
-    return {"status": "user created"}
-
-@app.get("/users")
-def get_users():
-    users = db.collection("users").stream()
-    return [user.to_dict() for user in users]
+export const auth = getAuth(app);
+export const db = getFirestore(app);
