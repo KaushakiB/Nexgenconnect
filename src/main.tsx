@@ -13,5 +13,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
+import { db } from "./firebase";
+
+console.log("Firebase connected:", db);
+
 export const auth = getAuth(app);
 export const db = getFirestore(app);
